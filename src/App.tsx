@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { ReducerType } from "./store/rootReducer";
+import { Status, changeStatus } from "./store/Slices/status";
 
 function App() {
+  const dispatch = useDispatch();
+  const status = useSelector<ReducerType, string>(
+    (state) => state.status.status
+  );
+
+  const handleSleeping = () => {
+    dispatch(changeStatus("sleeping"));
+  };
+
+  const handleReading = () => {
+    dispatch(changeStatus("reading"));
+  };
+
+  const handleStudying = () => {
+    dispatch(changeStatus("Studying"));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input></input>
+      <div>{`현재 상태는 ${status}입니다.`}</div>
+      <button onClick={handleSleeping}>sleeping</button>
+      <button onClick={handleReading}>reading</button>
+      <button onClick={handleStudying}>studying</button>
     </div>
   );
 }
